@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class FruitRequestDto {
 
     @NotNull(message = "Provider ID is required")
-    private Long provider_id;
+    private Long providerId;
 
     @NotBlank(message = "Fruit name is required")
     private String name;

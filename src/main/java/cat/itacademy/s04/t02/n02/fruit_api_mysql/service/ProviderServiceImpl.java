@@ -1,10 +1,12 @@
 package cat.itacademy.s04.t02.n02.fruit_api_mysql.service;
 
+import cat.itacademy.s04.t02.n02.fruit_api_mysql.dto.FruitRequestDto;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.dto.ProviderRequestDto;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.dto.ProviderResponseDto;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.exception.ProviderAlreadyExistsException;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.exception.ProviderHasFruitsException;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.exception.ProviderNotFoundException;
+import cat.itacademy.s04.t02.n02.fruit_api_mysql.mapper.FruitMapper;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.mapper.ProviderMapper;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.model.Provider;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.repository.FruitRepository;
