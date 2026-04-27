@@ -83,4 +83,4 @@ public class FruitServiceImpl implements FruitService {
                 .map(FruitMapper::toResponseDto)
                 .toList();
     }
-}=
+}
