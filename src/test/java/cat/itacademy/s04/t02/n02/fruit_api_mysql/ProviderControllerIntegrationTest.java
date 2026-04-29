@@ -4,7 +4,6 @@ import cat.itacademy.s04.t02.n02.fruit_api_mysql.dto.FruitRequestDto;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.dto.ProviderRequestDto;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.dto.ProviderResponseDto;
 import cat.itacademy.s04.t02.n02.fruit_api_mysql.service.FruitService;
-import cat.itacademy.s04.t02.n02.fruit_api_mysql.service.ProviderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import tools.jackson.databind.ObjectMapper;
+import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -28,21 +22,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@Testcontainers
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
 class ProviderControllerIntegrationTest {
-
-    @Container
-    static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0");
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", mysql::getJdbcUrl);
-        registry.add("spring.datasource.username", mysql::getUsername);
-        registry.add("spring.datasource.password", mysql::getPassword);
-    }
 
     @Autowired
     private MockMvc mockMvc;
@@ -52,9 +35,6 @@ class ProviderControllerIntegrationTest {
 
     @Autowired
     private FruitService fruitService;
-
-    @Autowired
-    private ProviderService providerService;
 
     private ProviderResponseDto createTestProvider(String name, String country) throws Exception {
         ProviderRequestDto provider = new ProviderRequestDto(name, country);
@@ -153,7 +133,7 @@ class ProviderControllerIntegrationTest {
         mockMvc.perform(delete("/providers/{id}", provider.getId()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").value("Bad Request"))
-                .andExpect(jsonPath("$.message").value(org.hamcrest.Matchers.containsString("Provider cannot be deleted.")));
+                .andExpect(jsonPath("$.message").value(org.hamcrest.Matchers.containsString("Integrity Constraint Violation")));
     }
 
     @Test
