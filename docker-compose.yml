@@ -9,10 +9,10 @@ services:
     container_name: mysql_fruit_api
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: fruit_db
-      MYSQL_USER: user_jessica
-      MYSQL_PASSWORD: password_jessica
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3307:3306"
     volumes:
@@ -26,12 +26,11 @@ services:
     ports:
       - "9000:9000"
     environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_NAME: fruit_db
-      DB_USERNAME: user_jessica
-      DB_PASSWORD: password_jessica
-
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       mysql:
         condition: service_healthy

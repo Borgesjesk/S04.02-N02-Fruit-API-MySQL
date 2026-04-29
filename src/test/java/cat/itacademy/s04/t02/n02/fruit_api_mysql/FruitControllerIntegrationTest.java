@@ -117,7 +117,7 @@ class FruitControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("DELETE: Remore fruit and verify 404")
+    @DisplayName("DELETE: Remove fruit and verify 404")
     void deleteFruitNotFound() throws Exception {
         Long providerId = createTestProvider("Delete Supplier", "Spain");
         FruitResponseDto response = createTestFruit(providerId, "Disposable Fruit", 4);
